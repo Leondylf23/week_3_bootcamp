@@ -1,0 +1,196 @@
+@import "../../style/base.scss";
+
+@include main-container {
+  position: relative;
+
+  .mobileHeader {
+    width: 100%;
+    height: 150px;
+    background-image: url("../../assets/imgs/bg-sidebar-mobile.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 0;
+    z-index: 0;
+    display: none;
+    justify-content: center;
+
+    @include media-screen-xs {
+      display: flex;
+    }
+    @include media-screen-sm {
+      display: flex;
+    }
+    .stepsIndicatorMobile {
+      @include container-x;
+
+      margin-top: 30px;
+      gap: 15px;
+
+      .steps {
+        @include container-items-center;
+
+        width: 35px;
+        height: 35px;
+        border-radius: 9999px;
+        border: 1px $white solid;
+        background-color: transparent;
+
+        .text {
+          @include font($font-size-md, $font-semibold);
+
+          color: $white;
+        }
+      }
+      .stepsActive {
+        background-color: $pastel-blue;
+
+        .text {
+          color: $marine-blue;
+        }
+      }
+    }
+  }
+  .container {
+    @include padding(25px);
+    @include container-x;
+
+    z-index: 10;
+    width: 90%;
+    max-width: 950px;
+    background-color: $background-color-container;
+    border-radius: 30px;
+
+    .leftSide {
+      background-image: url("../../assets/imgs/bg-sidebar-desktop.svg");
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      width: 300px;
+      border-radius: 20px;
+      flex-shrink: 0;
+
+      @include media-screen-xs {
+        display: none;
+      }
+      @include media-screen-sm {
+        display: none;
+      }
+      @include media-screen-md {
+        width: 200px;
+      }
+    }
+    .rightSide {
+      @include container-y;
+      @include padding-y(5%);
+      @include padding-x(6% !important);
+
+      min-height: 550px;
+      flex-grow: 1;
+      padding-left: 25px;
+
+      @include media-screen-xs {
+        min-height: 0;
+        padding-left: 0;
+      }
+      @include media-screen-sm {
+        min-height: 0;
+        padding-left: 0;
+      }
+      @include media-screen-md {
+        min-height: 400px;
+        padding-left: 15px;
+      }
+
+      .title {
+        @include font($font-size-xl, $font-bold);
+        @include margin-y(15px);
+      }
+      .message {
+        @include font($font-size-md, $font-semibold);
+
+        color: $cool-gray;
+        margin-bottom: 20px;
+      }
+      .footer {
+        @include container-x;
+        @include padding(15px);
+
+        flex-grow: 1;
+        align-items: center;
+        width: 100%;
+        background-color: $background-color-container;
+
+        .fillContainer {
+          @include container-x;
+
+          flex-grow: 1;
+          justify-content: end;
+
+          .buttonDefault {
+            @include button-default;
+          }
+        }
+        .buttonNoDecoration {
+          @include button-no-decoration;
+        }
+
+        @include media-screen-xs {
+          display: none;
+        }
+        @include media-screen-sm {
+          display: none;
+        }
+      }
+    }
+
+    @include media-screen-xs {
+      min-height: 0;
+      margin-top: 100px;
+      border-radius: 10px;
+    }
+    @include media-screen-sm {
+      min-height: 0;
+      margin-top: 100px;
+      border-radius: 10px;
+    }
+    @include media-screen-md {
+      @include padding(15px);
+
+      width: 90%;
+      max-width: 768px;
+    }
+  }
+  .footerMobile {
+    @include container-x;
+    @include padding(15px);
+
+    display: none;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: $background-color-container;
+
+    .fillContainer {
+      @include container-x;
+
+      flex-grow: 1;
+      justify-content: end;
+
+      .buttonDefault {
+        @include button-default;
+      }
+    }
+    .buttonNoDecoration {
+      @include button-no-decoration;
+    }
+
+    @include media-screen-xs {
+      display: flex;
+    }
+    @include media-screen-sm {
+      display: flex;
+    }
+  }
+}

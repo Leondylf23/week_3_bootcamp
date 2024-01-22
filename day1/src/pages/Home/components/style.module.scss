@@ -1,0 +1,362 @@
+@import "../../../style/base.scss";
+
+.sidePane {
+  @include container-y;
+  @include padding(40px);
+
+  gap: 30px;
+
+  .step {
+    @include container-x;
+
+    align-items: center;
+    background-color: transparent;
+    border: 0;
+    justify-content: start;
+    gap: 5px;
+
+    .stepBtn {
+      @include container-items-center;
+
+      width: 35px;
+      height: 35px;
+      border-radius: 9999px;
+      border: 1px $white solid;
+      background-color: transparent;
+      flex-shrink: 0;
+
+      .text {
+        @include font($font-size-md, $font-semibold);
+
+        color: $white;
+      }
+    }
+    .stepBtnActive {
+      background-color: $pastel-blue;
+
+      .text {
+        color: $marine-blue;
+      }
+    }
+    .textContainer {
+      @include container-y;
+
+      margin-left: 10px;
+      align-items: start;
+
+      .title {
+        @include font($font-size-md, $font-normal);
+        color: $cool-gray;
+      }
+      .description {
+        @include font($font-size-md, $font-bold);
+
+        color: $white;
+      }
+    }
+  }
+
+  @include media-screen-md {
+    @include padding(10px);
+    @include padding-y(25px);
+  }
+}
+
+.innerContainer {
+  @include container-y;
+
+  width: 100%;
+  height: 100%;
+  flex-grow: 1;
+  align-items: center;
+
+  .inputForms {
+    @include container-y;
+
+    width: 100%;
+
+    .labelInput {
+      @include font($font-size-md, $font-normal);
+
+      margin-bottom: 5px;
+      width: 100%;
+    }
+    .inputField {
+      @include font($font-size-md, $font-normal);
+      @include padding(15px);
+
+      margin-bottom: 10px;
+      border-radius: 5px;
+      border: 1px $light-gray solid;
+      height: 50px;
+      width: 100%;
+    }
+  }
+  .selectorContainer {
+    @include container-x;
+
+    gap: 15px;
+    width: 100%;
+
+    @include media-screen-xs {
+      @include container-y;
+      gap: 5px;
+    }
+    @include media-screen-sm {
+      @include container-y;
+      gap: 5px;
+    }
+
+    .selector {
+      @include padding(20px);
+      @include container-y;
+
+      align-items: start;
+      width: 100%;
+      border: 1px $cool-gray solid;
+      border-radius: 10px;
+      cursor: pointer;
+
+      @include media-screen-xs {
+        @include container-x;
+        @include padding(15px);
+        align-items: center;
+      }
+      @include media-screen-sm {
+        @include container-x;
+        @include padding(15px);
+        align-items: center;
+      }
+
+      .icon {
+        width: 45px;
+        height: 45px;
+        object-fit: cover;
+      }
+      .texts {
+        @include container-y;
+
+        gap: 10px;
+        margin-top: 50px;
+
+        @include media-screen-xs {
+          margin-left: 15px;
+          margin-top: 0;
+          align-items: center;
+          gap: 5px;
+        }
+        @include media-screen-sm {
+          margin-left: 15px;
+          margin-top: 0;
+          align-items: center;
+          gap: 5px;
+        }
+
+        .title {
+          @include font($font-size-md, $font-bold);
+        }
+        .detail {
+          @include font($font-size-md, $font-normal);
+
+          color: $cool-gray;
+        }
+      }
+      .extra {
+        @include font($font-size-md, $font-normal);
+      }
+      .price {
+        @include font($font-size-md, $font-normal);
+
+        color: $cool-gray;
+      }
+    }
+    .selectorActive {
+      background-color: $light-blue !important;
+      border: 1px $primary-color solid !important;
+    }
+  }
+  .checkboxConteiner {
+    @include container-y;
+
+    gap: 15px;
+    width: 100%;
+
+    @include media-screen-xs {
+        gap: 5px
+      }
+      @include media-screen-sm {
+        gap: 5px
+      }
+
+    .selector {
+      @include padding(15px);
+      @include container-x;
+
+      align-items: center;
+      width: 100%;
+      border: 1px $cool-gray solid;
+      border-radius: 10px;
+      cursor: pointer;
+
+      .icon {
+        width: 45px;
+        height: 45px;
+        object-fit: cover;
+      }
+      .texts {
+        @include container-y;
+
+        gap: 5px;
+        margin-left: 15px;
+        flex-grow: 1;
+
+        .title {
+          @include font($font-size-md, $font-bold);
+        }
+        .detail {
+          @include font($font-size-md, $font-normal);
+
+          color: $cool-gray;
+        }
+      }
+      .extra {
+        @include font($font-size-md, $font-normal);
+      }
+      .price {
+        @include font($font-size-md, $font-normal);
+
+        color: $cool-gray;
+      }
+    }
+    .selectorActive {
+      background-color: $light-blue !important;
+      border: 1px $primary-color solid !important;
+    }
+  }
+  .switchContainer {
+    @include container-x;
+
+    justify-content: center;
+    margin-top: 40px;
+    width: 100%;
+
+    .text {
+      @include font($font-size-md, $font-semibold);
+      @include padding-x(10px);
+    }
+    .textActive {
+      color: $cool-gray;
+    }
+  }
+  .summaryContainer {
+    @include container-y;
+    @include padding(10px);
+
+    background-color: $light-blue;
+    border-radius: 10px;
+    width: 100%;
+
+    .serviceContainer {
+      @include container-x;
+
+      align-items: center;
+
+      .service {
+        @include container-y;
+
+        gap: 5px;
+        flex-grow: 1;
+
+        .serviceText {
+          @include font($font-size-md, $font-bold);
+        }
+        .changeText {
+          @include font($font-size-md, $font-normal);
+
+          color: $cool-gray;
+          text-decoration: underline;
+          cursor: pointer;
+        }
+      }
+      .price {
+        @include font($font-size-md, $font-bold);
+      }
+    }
+    .border {
+      @include margin-y(15px);
+
+      width: 100%;
+      height: 1px;
+      background-color: $cool-gray;
+    }
+    .addons {
+      @include container-x;
+
+      align-items: center;
+      margin-bottom: 10px;
+
+      .name {
+        @include font($font-size-md, $font-normal);
+
+        color: $cool-gray;
+        flex-grow: 1;
+      }
+      .price {
+        @include font($font-size-md, $font-normal);
+      }
+    }
+  }
+  .totalContainer {
+    @include container-x;
+    @include padding(10px);
+
+    align-items: center;
+    width: 100%;
+
+    .name {
+      @include font($font-size-md, $font-normal);
+
+      color: $cool-gray;
+      flex-grow: 1;
+    }
+    .price {
+      @include font($font-size-lg, $font-semibold);
+
+      color: $purplish-blue;
+    }
+  }
+  .thankYouContainer {
+    @include container-items-center;
+    @include padding-y(20px);
+    @include padding-x(10px);
+
+    flex-direction: column;
+    gap: 20px;
+    height: 100%;
+    max-width: 400px;
+    width: 100%;
+
+    .icon {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+    }
+    .title {
+      @include font($font-size-xl, $font-bold);
+    }
+    .detailContainer {
+      @include container-y;
+      @include font($font-size-md, $font-normal);
+
+      justify-content: center;
+
+      .textParagraph {
+        @include font($font-size-md, $font-normal);
+
+        width: 100%;
+        text-align: center;
+        color: $cool-gray;
+      }
+    }
+  }
+}

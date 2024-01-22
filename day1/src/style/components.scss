@@ -1,0 +1,29 @@
+@import "./colors.scss";
+@import "./global-mixin.scss";
+
+@mixin button-default {
+    @include container-x;
+    @include padding(15px);
+    @include font($font-size-md, $font-normal);
+
+    background-color: $primary-color;
+    border: 0;
+    align-items: center;
+    color: $white;
+    border-radius: 5px;
+
+    &:hover {
+        background-color: $primary-color-darker;
+    }
+}
+@mixin button-no-decoration {
+    @include font($font-size-md, $font-normal);
+
+    color: $cool-gray;
+    background-color: transparent;
+    border: 0;
+
+    &:hover {
+        color: $light-gray;
+    }
+}
