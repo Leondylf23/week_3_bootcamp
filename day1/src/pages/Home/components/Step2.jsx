@@ -4,18 +4,19 @@ import { Stack, Typography, Switch } from "@mui/material";
 import { styled } from '@mui/material/styles';
 import { useSelector, useDispatch } from "react-redux";
 
+import { setAddOnsIds, setCategoryRedux, setPlanId } from "../reduceAction";
 import { plans } from "../../../constants";
 
 import classes from "./style.module.scss";
-import { setIsMonthly, setPlanId } from "../reduceAction";
 
-export default function Step2Component({ setData }) {
+export default function Step2Component({ fallback }) {
     const [selection, setSelection] = useState([]);
-    const [selected, setSelected] = useState(0);
+    const [selected, setSelected] = useState(-1);
     const [category, setCategory] = useState("monthly");
 
     const dispatch = useDispatch();
     const planId = useSelector((state) => state.homeReducer.planId);
+    const userData = useSelector((state) => state.homeReducer.userData);
 
     function changeSelection(id) {
         setSelected(id);
@@ -71,29 +72,26 @@ export default function Step2Component({ setData }) {
     }));
 
     useEffect(() => {
+        if(!userData || (!(userData?.name) || !(userData?.email) || !(userData?.phone))) {
+            if(typeof fallback === "function") {
+                fallback(1);
+            }
+        }
         if (planId != null) {
             const data = plans.find(v => v.id === planId);
             
             if (!data) return;
-            console.log(data);
+            
             setCategory(data?.category);
             setSelected(planId);
         }
     }, []);
     useEffect(() => {
         setSelection(plans.filter(v => v.category === category));
-        if (category === "yearly") {
-            if(selected < 3) {
-                setSelected(3);
-            }
-        } else {
-            if(selected > 2) {
-                setSelected(0);
-            }
-        }
     }, [category]);
     useEffect(() => {
         dispatch(setPlanId(selected));
+        dispatch(setCategoryRedux(category));
     }, [selected]);
 
     return (

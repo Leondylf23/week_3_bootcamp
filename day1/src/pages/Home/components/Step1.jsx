@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import classes from "./style.module.scss";
 import { setUserInfo } from "../reduceAction";
+import { emailRegex, phoneRegex } from "../../../constants";
 
 export default function Step1Component() {
     const [personalInfo, setPersonalInfo] = useState({name: "", email: "", phone: ""});
@@ -12,11 +13,18 @@ export default function Step1Component() {
     const personalInfoRedux = useSelector((state) => state.homeReducer.userData);
 
     useEffect(() => {
-        dispatch(setUserInfo(personalInfo));
+        if(personalInfo?.name?.length > 4) {
+            dispatch(setUserInfo({...personalInfoRedux, name: personalInfo?.name}));
+        }
+        if(emailRegex.test(personalInfo?.email)) {
+            dispatch(setUserInfo({...personalInfoRedux, email: personalInfo?.email}));
+        }
+        if(phoneRegex.test(personalInfo?.phone)) {
+            dispatch(setUserInfo({...personalInfoRedux, phone: personalInfo?.phone}));
+        }
     }, [personalInfo]);
 
     useEffect(() => {
-        console.log(personalInfoRedux);
         if(personalInfoRedux) {
             setPersonalInfo(personalInfoRedux);
         }
