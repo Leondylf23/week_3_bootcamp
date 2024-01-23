@@ -1,10 +1,15 @@
 
 import { useEffect, useState } from "react";
+import Avatar from '@mui/material/Avatar';
+
+import CardList from "@components/CardList";
+import { defaultProfileImg } from "@static/images";
 
 import classes from "./style.module.scss";
-import CardList from "@components/CardList";
+import Typography from '@mui/material/Typography'
+import Button from '@mui/material/Button'
 
-function Bookmarks() {
+function Profile() {
     const [data, setData] = useState([]);
 
     useEffect(() => {
@@ -54,10 +59,18 @@ function Bookmarks() {
 
     return (
         <div className={classes.container}>
-            <h1 className={classes.pageTitle}>Bookmark</h1>
+            <h1 className={classes.pageTitle}>Profile</h1>
+            <div className={classes.profileContainer}>
+                <Avatar alt="Ini Profile" src={defaultProfileImg} className={classes.avatar} />
+                <Typography variant="h4" className={classes.name}>Ini Orang</Typography>
+                <Typography variant="body2" className={classes.email}>iniorang@mail.com</Typography>
+                <Button variant="contained" className={classes.button}>
+                    Add New Post
+                </Button>
+            </div>
             <CardList data={data} />
         </div>
     );
 }
 
-export default Bookmarks;
+export default Profile;

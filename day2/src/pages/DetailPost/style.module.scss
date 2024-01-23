@@ -1,0 +1,53 @@
+@import "../../styles/base.scss";
+
+@include main-container {
+    .headerContainer {
+        @include directionX;
+        width: 100%;
+        align-items: center;
+        margin-bottom: 5px;
+
+        .title {
+            font-weight: 300;
+            font-style: italic;
+        }
+        .nameContainer {
+            @include directionX;
+            justify-content: end;
+            align-items: center;
+            flex-grow: 1;
+
+            .name {
+                font-weight: 300;
+                color: $color-gray;
+                font-size: 20px;
+                font-style: italic;
+            }
+        }
+    }
+    .headerDateContainer {
+        width: 100%;
+        margin-bottom: 30px;
+
+        .date {
+            color: $color-blue;
+            font-weight: 300;
+            font-size: 20px;
+        }
+    }
+    .imageContainer {
+        width: 100%;
+        height: auto;
+        margin-bottom: 30px;
+
+        .image {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+    }
+    .contentContainer {
+        width: 100%;
+        margin-bottom: 30px;
+    }
+}

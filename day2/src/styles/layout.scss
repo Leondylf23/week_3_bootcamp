@@ -44,3 +44,15 @@
 @mixin page-title {
   @include padding-y(10px);
 }
+
+@mixin main-container {
+  .container {
+    @include padding(2rem);
+    @include directionY;
+
+    align-items: center;
+    width: 100%;
+
+    @content;
+  }
+}

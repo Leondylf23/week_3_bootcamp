@@ -3,16 +3,10 @@ import { useDispatch } from 'react-redux';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
-
 import { setNavTransparent } from '@containers/App/actions';
-import FillMessage from '@components/FillMessage';
-import CardTravel from '@components/CardTravel';
 
 import classes from "./style.module.scss";
-import Typography from '@mui/material/Typography'
-
-
-
+import CardList from '@components/CardList';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -90,7 +84,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className={classes.container}>
+    <div className={`${classes.container} ${classes.translate}`}>
       <div className={classes.headerImg} ref={imgElement}>
         <div className={classes.textContainer}>
           <h1 className={classes.textHeader1}>The Journey you ever dreamed of.</h1>
@@ -117,11 +111,7 @@ const Home = () => {
             SEARCH
           </Button>
         </div>
-        {data.length > 0 ? <div className={classes.cardsContainer}>
-          {data?.map(e =>
-            <CardTravel data={e} />
-          )}
-        </div> : <FillMessage message={"Kosong"}></FillMessage>}
+        <CardList data={data} />
       </div>
     </div>
   );

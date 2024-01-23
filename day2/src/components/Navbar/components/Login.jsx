@@ -1,8 +1,11 @@
-import classes from "./style.module.scss";
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
+import Typography from '@mui/material/Typography'
+import PropType from "prop-types";
 
-const Login = () => {
+import classes from "./style.module.scss";
+
+const Login = ({switchToRegister, onClose}) => {
 
     const userLogin = (e) => {
         e.preventDefault();
@@ -19,6 +22,7 @@ const Login = () => {
                     onChange={() => { }}
                     type="email"
                     placeholder="Email"
+                    required
                     className={classes.field}
                 />
                 <label htmlFor="password" className={classes.label}>Password</label>
@@ -28,14 +32,21 @@ const Login = () => {
                     onChange={() => { }}
                     type="password"
                     placeholder="Password"
+                    required
                     className={classes.field}
                 />
                 <Button variant="contained" type="submit" className={classes.button}>
                     Login
                 </Button>
+                <Typography variant="body1" className={classes.footerText}>Don't have an account? Click <b className={classes.footerLink} onClick={switchToRegister}>Here</b></Typography>
             </form>
         </div>
     );
+}
+
+Login.propType = {
+    switchToRegister: PropType.func.isRequired,
+    onClose: PropType.func.isRequired
 }
 
 export default Login;

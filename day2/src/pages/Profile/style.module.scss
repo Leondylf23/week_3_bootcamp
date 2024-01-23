@@ -1,0 +1,39 @@
+@import "../../styles/base.scss";
+
+
+@include main-container {
+    .pageTitle {
+        @include page-title;
+
+        width: 100%;
+    }
+    .profileContainer {
+        @include margin-y(20px);
+        @include directionY;
+
+        width: 100%;
+        align-items: center;
+        
+        .avatar {
+            width: 200px;
+            height: 200px;
+            border: var(--border-color) 2px solid;
+            border-radius: 9999px;
+            margin-bottom: 20px;
+        }
+        .name {            
+            font-size: 28px;
+            font-weight: 700;
+            text-align: center;
+        }
+        .email {
+            font-size: 20px;
+            font-weight: 500;
+            text-align: center;
+            color: $color-gray;
+        }
+        .button {
+            @include margin-y(20px);
+        }
+    }
+}

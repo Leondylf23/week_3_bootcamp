@@ -50,7 +50,7 @@ const Navbar = ({ title, locale, theme }) => {
     if(modalType === "register") {
       setModalPage(<Register/>);
     } else {
-      setModalPage(<Login/>);
+      setModalPage(<Login switchToRegister={() => setModalPage(<Register/>)} />);
     }
   }
 
@@ -74,7 +74,7 @@ const Navbar = ({ title, locale, theme }) => {
 
   return (
     <div className={`${classes.headerWrapper} ${isBgTransparent ? classes.transparent : ""}`} data-testid="navbar">
-      <ModalContainer isOpen={modalPage} handleClose={() => setModalPage(null)} >
+      <ModalContainer isOpen={modalPage} handleClose={() => setModalPage(null)} size='small'>
           {modalPage}
       </ModalContainer>
       <div className={classes.contentWrapper}>

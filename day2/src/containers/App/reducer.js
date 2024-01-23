@@ -4,7 +4,7 @@ import { SET_LOCAL, SET_THEME, SET_POPUP, SET_LOADING, SET_NAV_TRANSPARENT } fro
 
 export const initialState = {
   locale: 'id',
-  theme: 'dark',
+  theme: 'light',
   popup: {
     open: false,
     title: '',
