@@ -106,6 +106,7 @@ export const addOns = [
         category: "yearly",
     },
 ];
-export const urlRegex = /^(ftp|http|https):\/\/[^ "]+|(www\.)[^ "]+\.[a-z]{2,}(\/[^ "]+)?$/;
+export const phoneRegex = /^(\+\d{1,3}\s?)?\(?\d{1,4}\)?[-.\s]?\d{1,10}$/
+;
 export const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 

@@ -33,7 +33,7 @@ export default function StepsIndicator({step, onClickStep}) {
                 </div>
             </button>
             <button className={clasess.step} onClick={() => onClickStep(4)}>
-                <div className={clasess.stepBtn + " " + (pageIndicator === 4 ? clasess.stepBtnActive : "")}><a className={clasess.text}>4</a></div>
+                <div className={clasess.stepBtn + " " + (pageIndicator > 3 ? clasess.stepBtnActive : "")}><a className={clasess.text}>4</a></div>
                 <div className={clasess.textContainer}>
                     <h3 className={clasess.title}>STEP 4</h3>
                     <h3 className={clasess.description}>SUMMARY</h3>

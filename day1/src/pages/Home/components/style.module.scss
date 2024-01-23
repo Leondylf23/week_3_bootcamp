@@ -142,13 +142,13 @@
         @include media-screen-xs {
           margin-left: 15px;
           margin-top: 0;
-          align-items: center;
+          justify-content: center;
           gap: 5px;
         }
         @include media-screen-sm {
           margin-left: 15px;
           margin-top: 0;
-          align-items: center;
+          justify-content: center;
           gap: 5px;
         }
 
@@ -303,6 +303,17 @@
       }
       .price {
         @include font($font-size-md, $font-normal);
+      }
+    }
+    .emptyContainer {
+      @include container-items-center;
+
+      width: 100%;
+      margin-bottom: 10px;
+      .text {
+        @include font($font-size-md, $font-normal);
+
+        color: $cool-gray;
       }
     }
   }

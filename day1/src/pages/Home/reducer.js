@@ -1,11 +1,11 @@
 import { produce } from "immer";
-import { SET_USER_DATA, SET_PLAN_ID, SET_ADDON_IDS, SET_IS_MONTHLY } from "./reduceContants";
+import { SET_USER_DATA, SET_PLAN_ID, SET_ADDON_IDS, SET_CATEGORY } from "./reduceContants";
 
 export const initialState = {
     userData: null,
     planId: null,
     addOnsIds: null,
-    isMonthly: null
+    category: null
 }
 
 const homeReducer = (state = initialState, action) =>
@@ -20,9 +20,9 @@ const homeReducer = (state = initialState, action) =>
             case SET_ADDON_IDS:
                 draft.addOnsIds = action.addOnsIds;
                 break;
-            case SET_IS_MONTHLY:
-                draft.isMonthly = action.isMonthly;
-                break
+            case SET_CATEGORY:
+                draft.category = action.category;
+                break;
             default:
                 break;
         }
