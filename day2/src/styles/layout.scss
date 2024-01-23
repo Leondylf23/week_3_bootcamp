@@ -1,0 +1,46 @@
+@mixin directionY {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin directionX {
+  display: flex;
+  flex-direction: row;
+}
+
+@mixin padding($value) {
+  padding: $value;
+  box-sizing: border-box;
+}
+
+@mixin padding-x($value) {
+  padding-left: $value;
+  padding-right: $value;
+  box-sizing: border-box;
+}
+
+@mixin padding-y($value) {
+  padding-top: $value;
+  padding-bottom: $value;
+  box-sizing: border-box;
+}
+
+@mixin margin-x($value) {
+  margin-left: $value;
+  margin-right: $value;
+}
+
+@mixin margin-y($value) {
+  margin-top: $value;
+  margin-bottom: $value;
+}
+
+@mixin grid($col, $gap) {
+  display: grid;
+  grid-template-columns: repeat($col, minmax(0, 1fr));
+  gap: $gap;
+}
+
+@mixin page-title {
+  @include padding-y(10px);
+}

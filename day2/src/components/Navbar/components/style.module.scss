@@ -1,0 +1,36 @@
+@import "../../../styles/base.scss";
+
+.container {
+    @include padding(2rem);
+    @include directionY;
+
+    align-items: center;
+
+    .title {
+        @include padding-y(1rem);
+
+        width: 100%;
+        text-align: center;
+        font-weight: 700;
+        font-size: 32px;
+    }
+    .formFields {
+        @include directionY;
+
+        width: 100%;
+
+        .label {
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        .field {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        .button {
+            width: 100%;
+            margin-top: 10px;
+        }
+    }
+}

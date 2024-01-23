@@ -1,0 +1,15 @@
+@import "../../styles/base.scss";
+
+.modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .modalContainer {
+        border: 0;
+        border-radius: 5px;
+        width: 400px;
+        min-height: 60%;
+        background-color: $color-white;
+    }
+}
