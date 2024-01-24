@@ -1,4 +1,4 @@
-import { SET_LOCAL, SET_THEME, SET_POPUP, SET_LOADING, PING, SET_NAV_TRANSPARENT, DO_REGISTER, DO_LOGIN } from '@containers/App/constants';
+import { SET_LOCAL, SET_THEME, SET_POPUP, SET_LOADING, PING, SET_NAV_TRANSPARENT, DO_REGISTER, DO_LOGIN, ADD_TO_BOOKMARK, REMOVE_FROM_BOOKMARK } from '@containers/App/constants';
 
 export const setLocale = (locale) => ({
   type: SET_LOCAL,
@@ -51,5 +51,17 @@ export const doRegister = (formData, cb) => ({
 export const doLogin = (formData, cb) => ({
   type: DO_LOGIN,
   formData,
+  cb
+});
+
+export const addToBookmark = (id, cb) => ({
+  type: ADD_TO_BOOKMARK,
+  id,
+  cb
+});
+
+export const removeFromBookmark = (id, cb) => ({
+  type: REMOVE_FROM_BOOKMARK,
+  id,
   cb
 })

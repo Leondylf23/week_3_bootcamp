@@ -19,19 +19,42 @@
       @include directionY;
       @include padding-x(1rem);
       color: $color-white;
-      width: 50%;
+      width: 100%;
       gap: 20px;
 
+      @include apply-at-sm-size {
+        width: 70%;
+      }
+      @include apply-at-md-size {
+        width: 50%;
+      }
+
       .textHeader1 {
-        font-size: 30px;
         font-weight: 600;
+        font-size: 24px;
         font-style: italic;
-        max-width: 300px;
+        max-width: 320px;
+        width: 100%;
+
+        @include apply-at-sm-size {
+          font-size: 24px;
+        }
+        @include apply-at-md-size {
+          font-size: 30px;
+        }
+  
       }
       .textHeader3 {
         width: 100%;
-        font-size: 20px;
+        font-size: 18px;
         font-weight: 100;
+
+        @include apply-at-sm-size {
+          font-size: 16px;
+        }
+        @include apply-at-md-size {
+          font-size: 20px;
+        }
       }
     }
   }
@@ -50,13 +73,21 @@
     }
     .searchContainer {
       @include directionX;
-      @include padding-x(2rem);
       @include margin-y(30px);
 
       width: 100%;
 
+      @include apply-at-sm-size {
+        @include padding-x(1rem);
+      }
+      @include apply-at-md-size {
+        @include padding-x(2rem);
+      }
+
       .searchField {
         flex-grow: 1;
+        background-color: $color-white;
+        border-radius: 10px 0 0 10px
       }
     }
     .cardsContainer {

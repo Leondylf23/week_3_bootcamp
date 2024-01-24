@@ -60,5 +60,12 @@ export default {
   register_validation_email: "Please enter a valid email format!",
   register_validation_password: "Password must be at least 6 characters!",
 
-  file_error: "File type is not allowed! Only allowed jpg, jpeg, and png!"
+  file_error: "File type is not allowed! Only allowed jpg, jpeg, and png!",
+
+  bookmark_add_success: "Journey has been saved in bookmark.",
+  bookmark_remove_success: "Journey has been removed from bookmark.",
+
+  btn_save: "Save",
+  btn_cancel: "Cancel"
+
 };

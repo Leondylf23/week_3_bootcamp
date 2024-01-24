@@ -1,9 +1,19 @@
 @import "../../styles/base.scss";
 
 .cardsContainer {
-    @include grid(4, 15px);
     @include margin-y(3rem);
+    @include grid(1, 10px);
     
     flex-grow: 1;
     width: 100%;
+    
+    @include apply-at-sm-size {
+        @include grid(2, 10px);
+    }
+    @include apply-at-md-size {
+        @include grid(3, 15px);
+    }
+    @include apply-at-xl-size {
+        @include grid(4, 20px);
+    }
 }

@@ -1,33 +1,52 @@
-
 import { useEffect, useState } from "react";
 import { FormattedMessage, useIntl } from "react-intl";
+import PropTypes from "prop-types";
+import { connect, useDispatch } from "react-redux";
 
 import CardList from "@components/CardList";
 
 import classes from "./style.module.scss";
+import { getBookmark } from "./actions";
+import { createStructuredSelector } from "reselect";
+import { selectBookmarks } from "./selectors";
 
-function Bookmarks() {
+function Bookmarks({ bookmarks }) {
     const [data, setData] = useState([]);
 
+    const dispatch = useDispatch();
+
     useEffect(() => {
-        setData([
-            {
-                id: 0,
-                title: "asdwasd 1",
-                date: "2020-07-29",
-                description: "Liburan di tahun baru 2020 keberangkatan saya menuju Pulau Dewata Bali.  Sampai lah saya malam itu di Bali Airport menujukan waktu jam 02.00, dan melanjutkan pejalanan yang menyenangkan..",
-                img: "https://s3-alpha-sig.figma.com/img/9ea2/b7f6/0b3985e85ba9dadcd815f7a9bf442435?Expires=1707091200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=D8MNgdQphS6Zvxh7WFqhWgJqtNAXDeWr1qhzxTRkkcx1k0IJ7vcyWF~ZkRDfz9EjmQJOArLOm6Rno2pVcEYOg8qP1zTSZIibaCP0oU63nUjeZaDnUAmUBIBjdaVHLtZTdN2pxEVLxa-WOtUFdv4Zs85Td2XqRh3RuhZp3AoYtKB9IGdoM0GeD6sE3~12K4~Xo8iydMMIkI4cwUFkWTMldW7LpvJIccfvKS2FiXs5KbzpFL0ZPKCYmJAwPe8PjwpkDgOn4f89Mr10fhi1qyZ-FlQJKTilwxXRJvQZPhajVVaqW~T9B8V7RH-x~IJjhSMW6l70sF0Yw4mqX-7JRot81w__",
-                author: "Cipto"
-            },
-        ]);
-    }, []);
+        if(bookmarks) {
+            setData(bookmarks.map(e => ({
+                id: e?.idPost,
+                title: e?.postBookmarks?.title,
+                imageUrl: e?.postBookmarks?.imageUrl,
+                shortDesc: e?.postBookmarks?.shortDesc,
+                timestamp: e?.postBookmarks?.timestamp,
+                user: {
+                    fullname: e?.userBookmarks?.fullname
+                }
+            })));
+        }
+    }, [bookmarks]);
+    useEffect(() => {
+        dispatch(getBookmark());
+    }, [dispatch]);
 
     return (
         <div className={classes.container}>
             <h1 className={classes.pageTitle}><FormattedMessage id="bookmark_title"/></h1>
-            <CardList data={data} />
+            <CardList data={data} isRemoveBookmarkBtn={true} />
         </div>
     );
 }
 
-export default Bookmarks;
+Bookmarks.propTypes = {
+    bookmarks: PropTypes.array
+}
+
+const mapStateToProps = createStructuredSelector({
+    bookmarks: selectBookmarks
+});
+
+export default connect(mapStateToProps)(Bookmarks);

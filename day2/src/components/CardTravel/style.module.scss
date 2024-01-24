@@ -14,25 +14,41 @@
             background-color: $color-gray;
         }
     }
-    .cardImg {
-        height: 180px;
+    .rmBookmarkBtn {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background-color: rgb(204, 20, 20);
+        color: $color-white;
+
+        &:hover {
+            background-color: rgb(139, 15, 15);
+        }
     }
-    .title {
-        font-size: 24px;
-        font-weight: 700;
-        margin-bottom: 5px;
-        width: 100%;
-        overflow-x: hidden;
-        text-overflow: ellipsis;
-    }
-    .dateName {
-        color: $color-gray;
-        margin-bottom: 15px;
-    }
-    .description {
-        width: 100%;
-        height: 200px;
-        overflow-y: hidden;
-        text-overflow: ellipsis;
+    .cardContent {
+        cursor: pointer;
+
+        .cardImg {
+            height: 180px;
+            cursor: pointer;
+        }
+        .title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            width: 100%;
+            overflow-x: hidden;
+            text-overflow: ellipsis;
+        }
+        .dateName {
+            color: $color-gray;
+            margin-bottom: 15px;
+        }
+        .description {
+            width: 100%;
+            height: 200px;
+            overflow-y: hidden;
+            text-overflow: ellipsis;
+        }
     }
 }

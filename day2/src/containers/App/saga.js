@@ -1,8 +1,8 @@
 import { takeLatest, call, put } from 'redux-saga/effects';
 
-import { getLoginUser, ping, sendRegisterUser } from '@domain/api';
+import { addToBookmarkApi, getLoginUser, ping, removeFromBookmarkApi, sendRegisterUser } from '@domain/api';
 import { showPopup, setLoading } from '@containers/App/actions';
-import { DO_LOGIN, DO_REGISTER, PING } from '@containers/App/constants';
+import { ADD_TO_BOOKMARK, DO_LOGIN, DO_REGISTER, PING, REMOVE_FROM_BOOKMARK } from '@containers/App/constants';
 import { setLogin, setLoginInformation, setToken } from '@containers/Client/actions';
 
 function* doPing() {
@@ -15,7 +15,7 @@ function* doPing() {
   yield put(setLoading(false));
 }
 
-function* doRegister({formData, cb}) {
+function* doRegister({ formData, cb }) {
   yield put(setLoading(true));
   try {
     yield call(sendRegisterUser, formData);
@@ -26,7 +26,7 @@ function* doRegister({formData, cb}) {
   yield put(setLoading(false));
 }
 
-function* doLogin({formData, cb}) {
+function* doLogin({ formData, cb }) {
   yield put(setLoading(true));
   try {
     const resLogin = yield call(getLoginUser, formData);
@@ -36,7 +36,33 @@ function* doLogin({formData, cb}) {
 
     yield put(setLogin(true));
     yield put(setLoginInformation(userData));
-    
+
+    cb();
+  } catch (error) {
+    yield put(showPopup());
+  }
+  yield put(setLoading(false));
+}
+
+function* addToBookmark({ id, cb }) {
+  yield put(setLoading(true));
+  try {
+    yield call(addToBookmarkApi, id);
+    cb();
+  } catch (error) {
+    if (error?.response?.status === 400) {
+      cb();
+    } else {
+      yield put(showPopup());
+    }
+  }
+  yield put(setLoading(false));
+}
+
+function* removeFromBookmark({ id, cb }) {
+  yield put(setLoading(true));
+  try {
+    yield call(removeFromBookmarkApi, id);
     cb();
   } catch (error) {
     yield put(showPopup());
@@ -48,4 +74,6 @@ export default function* appSaga() {
   yield takeLatest(PING, doPing);
   yield takeLatest(DO_REGISTER, doRegister);
   yield takeLatest(DO_LOGIN, doLogin);
+  yield takeLatest(ADD_TO_BOOKMARK, addToBookmark);
+  yield takeLatest(REMOVE_FROM_BOOKMARK, removeFromBookmark);
 }

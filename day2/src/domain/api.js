@@ -11,7 +11,11 @@ const urls = {
   getProfile: "user/get-profile",
   postNewPost: 'post/create',
   getMyPost: "post/my-post",
-  getPostDetail: "post/detail/"
+  getPostDetail: "post/detail/",
+  addToBookmark: "bookmark/create",
+  removeFromBookmark: "bookmark/remove/",
+  getBookmarks: "bookmark",
+  updateProfilePicture: "user/update/profile",
 };
 
 export const callAPI = async (endpoint, method, header = {}, params = {}, data = {}) => {
@@ -42,3 +46,7 @@ export const getProfileData = (token) => callAPI(urls.getProfile, "GET");
 export const postNewPost = (token, formData) => callAPI(urls.postNewPost, "POST", {} , {}, formData);
 export const getMyPost = () => callAPI(urls.getMyPost, "GET");
 export const getFetchPostDetail = (id) => callAPI(`${urls.getPostDetail}${id}`, "GET");
+export const addToBookmarkApi = (id) => callAPI(urls.addToBookmark, "POST", {}, {}, {postId: id});
+export const removeFromBookmarkApi = (id) => callAPI(`${urls.removeFromBookmark}${id}`, "DELETE");
+export const getBookmarksApi = () => callAPI(urls.getBookmarks, "GET");
+export const updateUserProfilePicture = (data) => callAPI(urls.updateProfilePicture, "PATCH", {}, {}, data);

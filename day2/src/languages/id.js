@@ -58,5 +58,11 @@ export default {
   register_validation_email: "Silakan masukkan format email yang valid!",
   register_validation_password: "Password harus mneggunakan minimal 6 kata!",
 
-  file_error: "Tipe file tidak didukung! Hanya mendukung jpg, jpeg, and png!"
+  file_error: "Tipe file tidak didukung! Hanya mendukung jpg, jpeg, and png!",
+
+  bookmark_add_success: "Perjalanan telah disimpan di bookmark.",
+  bookmark_remove_success: "Perjalanan telah dihapus dari bookmark.",
+
+  btn_save: "Simpan",
+  btn_cancel: "Batal"
 };

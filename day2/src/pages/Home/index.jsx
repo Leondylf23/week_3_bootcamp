@@ -96,7 +96,7 @@ const Home = ({ allpost }) => {
             }}
             className={classes.searchField}
           />
-          <Button variant="contained" className={classes.searchBtn} sx={{ borderRadius: "0px 10px 10px 0px" }}>
+          <Button variant="contained" className={classes.searchBtn} sx={{ borderRadius: "0px 10px 10px 0px" }} onClick={searchData}>
             <FormattedMessage id='home_search_button' />
           </Button>
         </div>

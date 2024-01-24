@@ -44,29 +44,43 @@
       @include directionX;
 
       align-items: center;
-      gap: 20px;
+      gap: 10px;
       margin-right: 20px;
       color: $color-white !important;
 
       .login {
         color: $color-white !important;
         font-weight: bold;
+        font-size: 14px;
         border: 1px $color-white solid;
-        width: 160px;
-        border-radius: 10px;
+        width: 80px;
+        border-radius: 5px;
+
+        @include apply-at-sm-size {
+          width: 120px;
+          font-size: 16px;
+          border-radius: 8px;
+        }
       }
       .loginDark {
         color: $color-blue !important;
         border: 1px $color-blue solid;
       }
       .register {
-        width: 160px;
+        width: 80px;
+        font-size: 14px;
+        border-radius: 5px;
         font-weight: bold;
-        border-radius: 10px;
         background-color: $color-blue;
 
         &:hover {
           background-color: $color-blue-darker;
+        }
+
+        @include apply-at-sm-size {
+          width: 120px;
+          font-size: 16px;
+          border-radius: 8px;
         }
       }
     }

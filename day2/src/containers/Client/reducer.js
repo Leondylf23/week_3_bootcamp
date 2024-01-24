@@ -1,6 +1,6 @@
 import { produce } from 'immer';
 
-import { SET_LOGIN, SET_LOGIN_INFOMRATION, SET_TOKEN } from '@containers/Client/constants';
+import { SET_LOGIN, SET_LOGIN_INFOMRATION, SET_NEW_PROFILE_IMG_CLIENT, SET_TOKEN } from '@containers/Client/constants';
 
 export const initialState = {
   login: false,
@@ -21,6 +21,11 @@ const clientReducer = (state = initialState, action) =>
         break;
       case SET_LOGIN_INFOMRATION:
         draft.loginInformation = action.data;
+        break;
+      case SET_NEW_PROFILE_IMG_CLIENT:
+        if(draft.loginInformation) {
+          draft.loginInformation.profileImage = action.data
+        }
         break;
     }
   });
