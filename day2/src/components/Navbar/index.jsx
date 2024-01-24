@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
@@ -9,30 +9,32 @@ import MenuItem from '@mui/material/MenuItem';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import NightsStayIcon from '@mui/icons-material/NightsStay';
-
-import { setLocale, setTheme } from '@containers/App/actions';
-
-import classes from './style.module.scss';
-import { defaultProfileImg, logo, logoWhite } from '@static/images';
-import { selectIsNavTransparent } from '@containers/App/selectors';
-import { selectLogin } from '@containers/Client/selectors';
 import Button from '@mui/material/Button'
 import ModalContainer from '@components/ModalContainer';
 import Register from './components/Register';
 import Login from './components/Login';
+import DropDownMenu from './components/DropdownMenu';
 
-const Navbar = ({ title, locale, theme }) => {
+import { setLocale, setTheme } from '@containers/App/actions';
+import { defaultProfileImg, logo, logoWhite } from '@static/images';
+import { selectIsNavTransparent } from '@containers/App/selectors';
+import { selectLogin, selectLoginInformation } from '@containers/Client/selectors';
+
+import classes from './style.module.scss';
+import { createStructuredSelector } from 'reselect';
+
+const Navbar = ({ title, locale, theme, isTransparent, isLogin, loginInformation }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [menuPosition, setMenuPosition] = useState(null);
   const [isBgTransparent, setIsBgTransparent] = useState(false);
   const [isUserLogined, setIsUserLogined] = useState(false);
   const [modalPage, setModalPage] = useState (null);
+  const [userProfileImg, setUserProfileImg] = useState ("");
+  const [anchorEl, setAnchorEl] = useState(null);
 
+  const isOpenMenu = Boolean(anchorEl);
   const open = Boolean(menuPosition);
-
-  const isTransparent = useSelector(selectIsNavTransparent);
-  const isLogin = useSelector(selectLogin);
 
   const handleClick = (event) => {
     setMenuPosition(event.currentTarget);
@@ -48,9 +50,9 @@ const Navbar = ({ title, locale, theme }) => {
 
   const openModal = (modalType) => {
     if(modalType === "register") {
-      setModalPage(<Register/>);
+      setModalPage(<Register switchToLogin={() => openModal("login")} onClose={() => setModalPage(null)} />);
     } else {
-      setModalPage(<Login switchToRegister={() => setModalPage(<Register/>)} />);
+      setModalPage(<Login switchToRegister={() => openModal("register")} onClose={() => setModalPage(null)} />);
     }
   }
 
@@ -65,12 +67,21 @@ const Navbar = ({ title, locale, theme }) => {
     navigate('/');
   };
 
+  const openCloseProfileMenu = (e) => {
+    if(isOpenMenu) {
+      setAnchorEl(null);
+    } else {
+      setAnchorEl(e.currentTarget);
+    }
+  }
+
   useEffect(() => {
     setIsBgTransparent(isTransparent);
   }, [isTransparent]);
   useEffect(() => {
     setIsUserLogined(isLogin);
-  }, [isLogin]);
+    setUserProfileImg(loginInformation?.profileImage != "" ? loginInformation?.profileImage : defaultProfileImg);
+  }, [isLogin, loginInformation]);
 
   return (
     <div className={`${classes.headerWrapper} ${isBgTransparent ? classes.transparent : ""}`} data-testid="navbar">
@@ -84,13 +95,14 @@ const Navbar = ({ title, locale, theme }) => {
         <div className={classes.toolbar}>
           {isUserLogined ? 
           <div className={classes.profile}>
-            <Avatar className={classes.avatar} src={defaultProfileImg} />
+            <Avatar className={classes.avatar} src={userProfileImg} onClick={openCloseProfileMenu}/>
+            <DropDownMenu isOpen={isOpenMenu} anchorEl={anchorEl} onClose={openCloseProfileMenu} labeledMenu={""} />
           </div> : <div className={classes.userButtons}>
               <Button variant="outlined" className={`${classes.login} ${isBgTransparent ? "" : classes.loginDark}`} onClick={() => openModal("login")}>
-                  Login
+                <FormattedMessage id="nav_login"/>
               </Button>
               <Button variant="contained" className={classes.register} onClick={() => openModal("register")}>
-                  Register
+                <FormattedMessage id="nav_register"/>
               </Button>
           </div>
           }
@@ -126,10 +138,16 @@ const Navbar = ({ title, locale, theme }) => {
   );
 };
 
-Navbar.propTypes = {
+Navbar.JourneypropTypes = {
   title: PropTypes.string,
   locale: PropTypes.string.isRequired,
   theme: PropTypes.string,
 };
 
-export default Navbar;
+const mapStateToProps = createStructuredSelector({
+  loginInformation: selectLoginInformation,
+  isLogin: selectLogin,
+  isTransparent: selectIsNavTransparent
+});
+
+export default connect(mapStateToProps)(Navbar);

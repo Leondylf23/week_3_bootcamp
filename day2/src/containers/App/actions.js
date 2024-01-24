@@ -1,4 +1,4 @@
-import { SET_LOCAL, SET_THEME, SET_POPUP, SET_LOADING, PING, SET_NAV_TRANSPARENT } from '@containers/App/constants';
+import { SET_LOCAL, SET_THEME, SET_POPUP, SET_LOADING, PING, SET_NAV_TRANSPARENT, DO_REGISTER, DO_LOGIN } from '@containers/App/constants';
 
 export const setLocale = (locale) => ({
   type: SET_LOCAL,
@@ -41,3 +41,15 @@ export const setNavTransparent = (isNavTransparent) => ({
   type: SET_NAV_TRANSPARENT,
   isNavTransparent
 });
+
+export const doRegister = (formData, cb) => ({
+  type: DO_REGISTER,
+  formData,
+  cb
+});
+
+export const doLogin = (formData, cb) => ({
+  type: DO_LOGIN,
+  formData,
+  cb
+})

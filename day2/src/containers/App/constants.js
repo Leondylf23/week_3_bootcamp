@@ -5,3 +5,5 @@ export const SET_LOADING = 'App/SET_LOADING';
 
 export const PING = 'App/PING';
 export const SET_NAV_TRANSPARENT = 'App/SET_NAV_TRANSPARENT';
+export const DO_REGISTER = 'App/DO_REGISTER';
+export const DO_LOGIN = 'App/DO_LOGIN';

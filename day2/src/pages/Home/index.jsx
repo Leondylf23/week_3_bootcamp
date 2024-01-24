@@ -1,34 +1,55 @@
 import { useEffect, useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector, connect } from 'react-redux';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import { FormattedMessage, useIntl } from 'react-intl';
+import { createStructuredSelector } from 'reselect';
+import PropTypes from "prop-types";
+
 
 import { setNavTransparent } from '@containers/App/actions';
+import CardList from '@components/CardList';
+import { selectLogin } from '@containers/Client/selectors';
+import { selectAllPost } from './selectors';
+import { getAllPost } from './actions';
 
 import classes from "./style.module.scss";
-import CardList from '@components/CardList';
 
-const Home = () => {
+const Home = ({ allpost }) => {
   const dispatch = useDispatch();
   const imgElement = useRef();
+  const intl = useIntl();
 
   const [data, setData] = useState([]);
+  const [viewData, setViewData] = useState([]);
+  const [searchField, setSearchField] = useState("");
+  const [isUserLogined, setIsUserLogined] = useState(false);
+
+  const isLogin = useSelector(selectLogin);
+
+  function searchData() {
+    if(searchField != "") {
+      setViewData(data.filter(v => v.title.toLowerCase().indexOf(searchField.toLowerCase()) !== -1));
+    } else {
+      setViewData(data);
+    }
+  }
 
   function scrollEvent(e) {
     const currentScroll = e.target.scrollingElement.scrollTop;
     const offsetImgElement = imgElement.current.offsetHeight;
-    if (currentScroll > offsetImgElement) {
-      dispatch(setNavTransparent(false));
-    } else {
+    if ((currentScroll < (offsetImgElement - 60)) && !isUserLogined) {
       dispatch(setNavTransparent(true));
+    } else {
+      dispatch(setNavTransparent(false));
     }
   }
 
   useEffect(() => {
     // dispatch(ping());
-    dispatch(setNavTransparent(true));
+    // dispatch(setNavTransparent(true));
+      dispatch(getAllPost());
   }, [dispatch]);
-
   useEffect(() => {
     addEventListener("scroll", scrollEvent);
 
@@ -37,68 +58,36 @@ const Home = () => {
 
   // cleanup
   useEffect(() => {
-    setData([
-      {
-        id: 0,
-        title: "asdwasd 1",
-        date: "2020-07-29",
-        description: "Liburan di tahun baru 2020 keberangkatan saya menuju Pulau Dewata Bali.  Sampai lah saya malam itu di Bali Airport menujukan waktu jam 02.00, dan melanjutkan pejalanan yang menyenangkan..",
-        img: "https://s3-alpha-sig.figma.com/img/9ea2/b7f6/0b3985e85ba9dadcd815f7a9bf442435?Expires=1707091200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=D8MNgdQphS6Zvxh7WFqhWgJqtNAXDeWr1qhzxTRkkcx1k0IJ7vcyWF~ZkRDfz9EjmQJOArLOm6Rno2pVcEYOg8qP1zTSZIibaCP0oU63nUjeZaDnUAmUBIBjdaVHLtZTdN2pxEVLxa-WOtUFdv4Zs85Td2XqRh3RuhZp3AoYtKB9IGdoM0GeD6sE3~12K4~Xo8iydMMIkI4cwUFkWTMldW7LpvJIccfvKS2FiXs5KbzpFL0ZPKCYmJAwPe8PjwpkDgOn4f89Mr10fhi1qyZ-FlQJKTilwxXRJvQZPhajVVaqW~T9B8V7RH-x~IJjhSMW6l70sF0Yw4mqX-7JRot81w__",
-        author: "Cipto"
-      },
-      {
-        id: 1,
-        title: "asdwasd 2",
-        date: "2020-07-29",
-        description: "Liburan di tahun baru 2020 keberangkatan saya menuju Pulau Dewata Bali.  Sampai lah saya malam itu di Bali Airport menujukan waktu jam 02.00, dan melanjutkan pejalanan yang menyenangkan..",
-        img: "https://s3-alpha-sig.figma.com/img/9ea2/b7f6/0b3985e85ba9dadcd815f7a9bf442435?Expires=1707091200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=D8MNgdQphS6Zvxh7WFqhWgJqtNAXDeWr1qhzxTRkkcx1k0IJ7vcyWF~ZkRDfz9EjmQJOArLOm6Rno2pVcEYOg8qP1zTSZIibaCP0oU63nUjeZaDnUAmUBIBjdaVHLtZTdN2pxEVLxa-WOtUFdv4Zs85Td2XqRh3RuhZp3AoYtKB9IGdoM0GeD6sE3~12K4~Xo8iydMMIkI4cwUFkWTMldW7LpvJIccfvKS2FiXs5KbzpFL0ZPKCYmJAwPe8PjwpkDgOn4f89Mr10fhi1qyZ-FlQJKTilwxXRJvQZPhajVVaqW~T9B8V7RH-x~IJjhSMW6l70sF0Yw4mqX-7JRot81w__",
-        author: "Cipto"
-      },
-      {
-        id: 2,
-        title: "asdwasd 3",
-        date: "2020-07-29",
-        description: "Liburan di tahun baru 2020 keberangkatan saya menuju Pulau Dewata Bali.  Sampai lah saya malam itu di Bali Airport menujukan waktu jam 02.00, dan melanjutkan pejalanan yang menyenangkan..",
-        img: "https://s3-alpha-sig.figma.com/img/9ea2/b7f6/0b3985e85ba9dadcd815f7a9bf442435?Expires=1707091200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=D8MNgdQphS6Zvxh7WFqhWgJqtNAXDeWr1qhzxTRkkcx1k0IJ7vcyWF~ZkRDfz9EjmQJOArLOm6Rno2pVcEYOg8qP1zTSZIibaCP0oU63nUjeZaDnUAmUBIBjdaVHLtZTdN2pxEVLxa-WOtUFdv4Zs85Td2XqRh3RuhZp3AoYtKB9IGdoM0GeD6sE3~12K4~Xo8iydMMIkI4cwUFkWTMldW7LpvJIccfvKS2FiXs5KbzpFL0ZPKCYmJAwPe8PjwpkDgOn4f89Mr10fhi1qyZ-FlQJKTilwxXRJvQZPhajVVaqW~T9B8V7RH-x~IJjhSMW6l70sF0Yw4mqX-7JRot81w__",
-        author: "Cipto"
-      },
-      {
-        id: 3,
-        title: "asdwasd 4",
-        date: "2020-07-29",
-        description: "Liburan di tahun baru 2020 keberangkatan saya menuju Pulau Dewata Bali.  Sampai lah saya malam itu di Bali Airport menujukan waktu jam 02.00, dan melanjutkan pejalanan yang menyenangkan..",
-        img: "https://s3-alpha-sig.figma.com/img/9ea2/b7f6/0b3985e85ba9dadcd815f7a9bf442435?Expires=1707091200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=D8MNgdQphS6Zvxh7WFqhWgJqtNAXDeWr1qhzxTRkkcx1k0IJ7vcyWF~ZkRDfz9EjmQJOArLOm6Rno2pVcEYOg8qP1zTSZIibaCP0oU63nUjeZaDnUAmUBIBjdaVHLtZTdN2pxEVLxa-WOtUFdv4Zs85Td2XqRh3RuhZp3AoYtKB9IGdoM0GeD6sE3~12K4~Xo8iydMMIkI4cwUFkWTMldW7LpvJIccfvKS2FiXs5KbzpFL0ZPKCYmJAwPe8PjwpkDgOn4f89Mr10fhi1qyZ-FlQJKTilwxXRJvQZPhajVVaqW~T9B8V7RH-x~IJjhSMW6l70sF0Yw4mqX-7JRot81w__",
-        author: "Cipto"
-      },
-      {
-        id: 4,
-        title: "asdwasd 5",
-        date: "2020-07-29",
-        description: "Liburan di tahun baru 2020 keberangkatan saya menuju Pulau Dewata Bali.  Sampai lah saya malam itu di Bali Airport menujukan waktu jam 02.00, dan melanjutkan pejalanan yang menyenangkan..",
-        img: "https://s3-alpha-sig.figma.com/img/9ea2/b7f6/0b3985e85ba9dadcd815f7a9bf442435?Expires=1707091200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=D8MNgdQphS6Zvxh7WFqhWgJqtNAXDeWr1qhzxTRkkcx1k0IJ7vcyWF~ZkRDfz9EjmQJOArLOm6Rno2pVcEYOg8qP1zTSZIibaCP0oU63nUjeZaDnUAmUBIBjdaVHLtZTdN2pxEVLxa-WOtUFdv4Zs85Td2XqRh3RuhZp3AoYtKB9IGdoM0GeD6sE3~12K4~Xo8iydMMIkI4cwUFkWTMldW7LpvJIccfvKS2FiXs5KbzpFL0ZPKCYmJAwPe8PjwpkDgOn4f89Mr10fhi1qyZ-FlQJKTilwxXRJvQZPhajVVaqW~T9B8V7RH-x~IJjhSMW6l70sF0Yw4mqX-7JRot81w__",
-        author: "Cipto"
-      },
-    ]);
+    const resData = allpost
+    setData(allpost);
+    setViewData(allpost);
+    setIsUserLogined(isLogin);
+
+    if(isLogin) {
+      dispatch(setNavTransparent(false));
+    } else {
+      dispatch(setNavTransparent(true));
+    }
 
     return () => dispatch(setNavTransparent(false));
-  }, []);
+  }, [isLogin, allpost]);
 
   return (
-    <div className={`${classes.container} ${classes.translate}`}>
-      <div className={classes.headerImg} ref={imgElement}>
+    <div className={`${classes.container} ${isUserLogined ? "" : classes.translate}`}>
+      <div className={`${classes.headerImg} ${isUserLogined ? classes.headerImgDisabled : ""}`} ref={imgElement}>
         <div className={classes.textContainer}>
-          <h1 className={classes.textHeader1}>The Journey you ever dreamed of.</h1>
-          <h3 className={classes.textHeader3}>We made a tool so you can easily keep & share your travel memories. But there is a lot more</h3>
+          <h1 className={classes.textHeader1}><FormattedMessage id='home_heading1' /></h1>
+          <h3 className={classes.textHeader3}><FormattedMessage id='home_heading2' /></h3>
         </div>
       </div>
       <div className={classes.content}>
-        <h1 className={classes.pageTitle}>Journey</h1>
+        <h1 className={classes.pageTitle}><FormattedMessage id='home_title' /></h1>
         <div className={classes.searchContainer}>
           <TextField
             id="search"
-            placeholder='Find Journey'
-            value={""}
-            onChange={() => { }}
+            placeholder={intl.formatMessage({id: "home_search_placeholder"})}
+            value={searchField}
+            onChange={(e) => setSearchField(e.target.value)}
             variant='outlined'
             InputProps={{
               style: {
@@ -108,13 +97,21 @@ const Home = () => {
             className={classes.searchField}
           />
           <Button variant="contained" className={classes.searchBtn} sx={{ borderRadius: "0px 10px 10px 0px" }}>
-            SEARCH
+            <FormattedMessage id='home_search_button' />
           </Button>
         </div>
-        <CardList data={data} />
+        <CardList data={viewData} />
       </div>
     </div>
   );
 };
 
-export default Home;
+Home.propTypes = {
+  allpost: PropTypes.array,
+};
+
+const mapStateToProps = createStructuredSelector({
+  allpost: selectAllPost
+});
+
+export default connect(mapStateToProps)(Home);

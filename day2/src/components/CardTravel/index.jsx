@@ -16,11 +16,11 @@ function CardTravel({ data }) {
             <IconButton aria-label="favorite" onClick={() => {}} className={classes.bookmarkBtn}>
               <BookmarkBorderIcon />
             </IconButton>
-            <CardMedia title={data?.title} image={data?.img} className={classes.cardImg} />
+            <CardMedia title={data?.title} image={data?.imageUrl} className={classes.cardImg} />
             <CardContent className={classes.cardContent}>
                 <Typography variant="h4" className={classes.title}>{data?.title}</Typography>
-                <Typography variant="body2" className={classes.dateName}>{`${convertDate(data?.date)}, ${data?.author}`}</Typography>
-                <Typography variant="body2" className={classes.description}>{data?.description}</Typography>
+                <Typography variant="body2" className={classes.dateName}>{`${convertDate(data?.timestamp)}, ${data?.user?.fullname}`}</Typography>
+                <Typography variant="body2" className={classes.description}>{data?.shortDesc}</Typography>
             </CardContent>
         </Card>
     );

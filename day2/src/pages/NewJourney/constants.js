@@ -1,0 +1,1 @@
+export const ADD_NEW_JOURNEY = 'NewJourney/ADD_NEW_JOURNEY';
