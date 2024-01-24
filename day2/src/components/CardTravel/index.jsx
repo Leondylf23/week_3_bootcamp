@@ -49,7 +49,7 @@ function CardTravel({ data, isRemoveBookmark = false, onDelete }) {
                     <BookmarkBorderIcon />
                 </IconButton>
             }
-            <CardMedia title={data?.title} image={data?.imageUrl} className={classes.cardImg} onClick={gotToDetail} />
+            <CardMedia title={data?.title} image={data?.imageUrl} sx={{height: "250px"}} className={classes.cardImg} onClick={gotToDetail} />
             <CardContent className={classes.cardContent} onClick={gotToDetail}>
                 <Typography variant="h4" className={classes.title}>{data?.title}</Typography>
                 <Typography variant="body2" className={classes.dateName}>{`${convertDate(data?.timestamp)}, ${data?.user?.fullname}`}</Typography>
