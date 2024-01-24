@@ -5,14 +5,21 @@ import Typography from '@mui/material/Typography';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import IconButton from '@mui/material/IconButton';
 import PropTypes from 'prop-types';
+import { useNavigate } from "react-router-dom";
 
 import { convertDate } from '@utils/allUtils';
 
 import classes from "./style.module.scss";
 
 function CardTravel({ data }) {
+    const navigate = useNavigate();
+
+    function gotToDetail() {
+        navigate(`/${data?.id}`);
+    }
+
     return (
-        <Card sx={{ width: "100%" }} className={classes.card}>
+        <Card sx={{ width: "100%" }} className={classes.card} onClick={gotToDetail}>
             <IconButton aria-label="favorite" onClick={() => {}} className={classes.bookmarkBtn}>
               <BookmarkBorderIcon />
             </IconButton>

@@ -10,7 +10,8 @@ const urls = {
   loginUser: "user/login",
   getProfile: "user/get-profile",
   postNewPost: 'post/create',
-  getMyPost: "post/my-post"
+  getMyPost: "post/my-post",
+  getPostDetail: "post/detail/"
 };
 
 export const callAPI = async (endpoint, method, header = {}, params = {}, data = {}) => {
@@ -40,4 +41,4 @@ export const getLoginUser = (formData) => callAPI(urls.loginUser, "POST", {}, {}
 export const getProfileData = (token) => callAPI(urls.getProfile, "GET");
 export const postNewPost = (token, formData) => callAPI(urls.postNewPost, "POST", {} , {}, formData);
 export const getMyPost = () => callAPI(urls.getMyPost, "GET");
-export const getPostDetail = () => callAPI()
+export const getFetchPostDetail = (id) => callAPI(`${urls.getPostDetail}${id}`, "GET");
