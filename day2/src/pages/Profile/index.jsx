@@ -64,7 +64,7 @@ function Profile({ loginInformation, myPosts }) {
             <h1 className={classes.pageTitle}><FormattedMessage id="profile_title" /></h1>
             <div className={classes.profileContainer}>
                 <label htmlFor="file">
-                    <Avatar alt="Ini Profile" src={newPicture ? URL.createObjectURL(newPicture) : userData?.profileImage != "" ? userData?.profileImage : defaultProfileImg} className={classes.avatar} />
+                    <Avatar alt="Ini Profile" src={newPicture ? URL.createObjectURL(newPicture) : userData?.profileImage != "" ? userData?.profileImage : defaultProfileImg} className={`${classes.avatar} ${newPicture ? "" : classes.avatarPointer}`} />
                 </label>
                 {!newPicture && <input id="file" type="file" accept="image/*" onChange={fileOnChange} hidden />}
                 <Typography variant="h4" className={classes.name}>{userData.fullname}</Typography>

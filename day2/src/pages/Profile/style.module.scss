@@ -41,5 +41,8 @@
             @include directionX;
             gap: 20px
         }
+        .avatarPointer {
+            cursor: pointer;
+        }
     }
 }
