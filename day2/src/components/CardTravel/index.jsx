@@ -6,7 +6,7 @@ import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import IconButton from '@mui/material/IconButton';
 import PropTypes from 'prop-types';
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, connect } from "react-redux";
 import { useIntl } from "react-intl";
 import DeleteIcon from '@mui/icons-material/Delete';
 
@@ -14,11 +14,20 @@ import { convertDate } from '@utils/allUtils';
 
 import classes from "./style.module.scss";
 import { addToBookmark, removeFromBookmark, showPopup } from '@containers/App/actions';
+import { createStructuredSelector } from 'reselect';
+import { selectLogin } from '@containers/Client/selectors';
+import { useEffect, useState } from 'react';
 
-function CardTravel({ data, isRemoveBookmark = false, onDelete }) {
+function CardTravel({ data, isRemoveBookmark = false, onDelete, isLogin }) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const intl = useIntl();
+
+    const [isLogined, setIsLogined] = useState(false);
+
+    useEffect(() => {
+        setIsLogined(isLogin);
+    }, [isLogin])
 
     function gotToDetail() {
         navigate(`/${data?.id}`);
@@ -41,14 +50,14 @@ function CardTravel({ data, isRemoveBookmark = false, onDelete }) {
 
     return (
         <Card sx={{ width: "100%" }} className={classes.card}>
-            {isRemoveBookmark ? 
+            {isLogined ? (isRemoveBookmark ? 
                 <IconButton aria-label="favorite" onClick={removeFromBookmarkBtn} className={classes.rmBookmarkBtn}>
                     <DeleteIcon />
                 </IconButton> :
                 <IconButton aria-label="favorite" onClick={addToBookmarkBtn} className={classes.bookmarkBtn}>
                     <BookmarkBorderIcon />
-                </IconButton>
-            }
+                </IconButton>)
+            : <></>}
             <CardMedia title={data?.title} image={data?.imageUrl} sx={{height: "250px"}} className={classes.cardImg} onClick={gotToDetail} />
             <CardContent className={classes.cardContent} onClick={gotToDetail}>
                 <Typography variant="h4" className={classes.title}>{data?.title}</Typography>
@@ -59,9 +68,15 @@ function CardTravel({ data, isRemoveBookmark = false, onDelete }) {
     );
 }
 
-CardTravel.ropTypes = {
+CardTravel.PropTypes = {
     data: PropTypes.object,
-    isRemoveBookmark: PropTypes.bool
+    isRemoveBookmark: PropTypes.bool,
+    onDelete: PropTypes.func,
+    isLogin: PropTypes.bool,
 }
 
-export default CardTravel;
+const mapStateToProps = createStructuredSelector({
+    isLogin: selectLogin,
+});
+
+export default connect(mapStateToProps)(CardTravel);
